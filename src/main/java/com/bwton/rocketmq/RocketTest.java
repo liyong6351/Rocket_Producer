@@ -30,11 +30,12 @@ public class RocketTest {
 
     /**
      * 参数1 表示发送消息的类型(0无序消息 1有序消息 2延时消息(延时为随机的10秒之内的值))
-     * 参数2 表示发送的TopicId
-     * 参数3 表示发送的 Tag
-     * 参数4 表示发送消息的条数 默认一次执行10000条消息
-     * 参数5 表示发送消息的长度 默认一次发送800字符的消息
-     * 参数6 表示配置的NameServer 示例:"10.1.54.121:9876;10.1.54.122:9876"
+     * 参数2 表示groupName
+     * 参数3 表示发送的TopicId
+     * 参数4 表示发送的 Tag
+     * 参数5 表示发送消息的条数 默认一次执行10000条消息
+     * 参数6 表示发送消息的长度 默认一次发送800字符的消息
+     * 参数7 表示配置的NameServer 示例:"10.1.54.121:9876;10.1.54.122:9876"
      *
      * @param args 运行消息
      */
@@ -50,38 +51,41 @@ public class RocketTest {
 
     /**
      * 参数1 表示配置的NameServer 示例:"10.1.54.121:9876;10.1.54.122:9876"
-     * 参数2 表示发送消息的类型(0无序消息 1有序消息 2延时消息(延时为随机的10秒之内的值))
-     * 参数3 表示发送的TopicId
-     * 参数4 表示发送的 Tag
-     * 参数5 表示发送消息的条数 默认一次执行10000条消息
-     * 参数6 表示发送消息的长度 默认一次发送800字符的消息
+     * 参数2 表示groupName
+     * 参数3 表示发送消息的类型(0无序消息 1有序消息 2延时消息(延时为随机的10秒之内的值))
+     * 参数4 表示发送的TopicId
+     * 参数5 表示发送的 Tag
+     * 参数6 表示发送消息的条数 默认一次执行10000条消息
+     * 参数7 表示发送消息的长度 默认一次发送800字符的消息
      *
      * @param args 运行消息
      */
     private static ConfigModel assemblyModel(String[] args) {
         ConfigModel model = new ConfigModel();
-        if (args.length >= 4) {
+        if (args.length >= 5) {
             model.setNameServer(args[0]);
-            model.setMsgTypeEnum(MsgTypeEnum.getEnum(Integer.valueOf(args[1])));
-            model.setTopicId(args[2]);
-            model.setTags(args[3].split(":"));
+            model.setGroupName(args[1]);
+            model.setMsgTypeEnum(MsgTypeEnum.getEnum(Integer.valueOf(args[2])));
+            model.setTopicId(args[3]);
+            model.setTags(args[4].split(":"));
         }
-        if (args.length >= 6) {
-            model.setMsgCount(Integer.valueOf(args[4]));
-            model.setMsgLength(Integer.valueOf(args[5]));
-        } else if (args.length == 5) {
-            model.setMsgCount(Integer.valueOf(args[4]));
+        if (args.length >= 7) {
+            model.setMsgCount(Integer.valueOf(args[5]));
+            model.setMsgLength(Integer.valueOf(args[6]));
+        } else if (args.length == 6) {
+            model.setMsgCount(Integer.valueOf(args[5]));
         }
         return model;
     }
 
     /**
      * 参数1 表示配置的NameServer 示例:"10.1.54.121:9876;10.1.54.122:9876"
-     * 参数2 表示发送消息的类型(0无序消息 1有序消息 2延时消息(延时为随机的10秒之内的值))
-     * 参数3 表示发送的TopicId
-     * 参数4 表示发送的 Tag
-     * 参数5 表示发送消息的条数 默认一次执行10000条消息
-     * 参数6 表示发送消息的长度 默认一次发送800字符的消息
+     * 参数2 表示groupName
+     * 参数3 表示发送消息的类型(0无序消息 1有序消息 2延时消息(延时为随机的10秒之内的值))
+     * 参数4 表示发送的TopicId
+     * 参数5 表示发送的 Tag
+     * 参数6 表示发送消息的条数 默认一次执行10000条消息
+     * 参数7 表示发送消息的长度 默认一次发送800字符的消息
      *
      * @param args 运行消息
      */
@@ -90,8 +94,8 @@ public class RocketTest {
         if (args == null) {
             return "没有传入参数";
         } else {
-            if (args.length < 4) {
-                return "至少传入4个参数";
+            if (args.length < 5) {
+                return "至少传入5个参数";
             } else {
                 String nameServer = args[0];
                 String[] nameServers = nameServer.split(";");
@@ -103,7 +107,7 @@ public class RocketTest {
                         return "nameServer的端口不是9876，请重新传入";
                     }
                 }
-                String msgType = args[1];
+                String msgType = args[2];
                 if (NumberUtils.isDigits(msgType)) {
                     MsgTypeEnum msgTypeEnum = MsgTypeEnum.getEnum(Integer.valueOf(msgType));
                     if (msgTypeEnum == null) {
@@ -113,14 +117,14 @@ public class RocketTest {
                     return "传入的消息类型不对，请重新输入";
                 }
 
-                if (args.length >= 5) {
+                if (args.length >= 6) {
                     String msgNum = args[5];
                     if (!NumberUtils.isDigits(msgNum)) {
                         return "输入的发送条数不是整数，请重新输入";
                     }
                 }
 
-                if (args.length >= 6) {
+                if (args.length >= 7) {
                     String msgLength = args[6];
                     if (!NumberUtils.isDigits(msgLength)) {
                         return "输入的消息最大长度不是整数，请重新输入";

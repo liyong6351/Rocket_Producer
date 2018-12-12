@@ -12,6 +12,7 @@ import lombok.Data;
  **/
 @Data
 public class ConfigModel {
+    private String groupName;
     private MsgTypeEnum msgTypeEnum;
     //topicId
     private String topicId;
