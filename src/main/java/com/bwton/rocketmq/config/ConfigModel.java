@@ -18,9 +18,11 @@ public class ConfigModel {
     //发送的tags
     private String[] tags;
     //发送的消息条数
-    private int msgCount;
+    private int msgCount=1000;
     //每条消息的长度
     private int msgLength;
     //mq的nameServer
     private String nameServer;
+    //delay类型
+    private Integer delayType;
 }

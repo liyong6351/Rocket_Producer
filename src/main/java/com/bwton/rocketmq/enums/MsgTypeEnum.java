@@ -8,8 +8,8 @@ package com.bwton.rocketmq.enums;
  * @Version 0.0.1
  **/
 public enum MsgTypeEnum {
-    COMMON("无序", 1),
-    ORDERED("有序", 2),
+    COMMON("无序非延迟", 1),
+    ORDERED("有序非延迟", 2),
     COMMON_DELAY("无序延迟", 3),
     ORDERED_DELAY("有序延迟", 4),
     UN_KNOWN("未知", 0);
